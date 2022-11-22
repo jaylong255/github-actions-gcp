@@ -14,11 +14,26 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
+        uses: Industrial/push-docker-gcr
         with:
-          service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
-          project_id: ${{ secrets.PROJECT_ID }}
-          export_default_credentials: true
+          docker_image_name: api
+          docker_image_tag: latest
+          docker_context: ./services/api
+          gcr_host: gcr.io
+          gcr_project_id: ${{ secrets.PROJECT_ID }}
+          gcr_service_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+
+# jobs:
+#   build-and-push-to-gcr:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out code
+#         uses: actions/checkout@v2
+#       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
+#         with:
+#           service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+#           project_id: ${{ secrets.PROJECT_ID }}
+#           export_default_credentials: true
 
 # jobs:
 #   build:
