@@ -9,8 +9,8 @@ on:
       - dev
 
 jobs:
-  job_id:
-    # ...
+  build-and-push-to-gcr:
+    runs-on: ubuntu-latest
 
     # Add "id-token" with the intended permissions.
     permissions:
