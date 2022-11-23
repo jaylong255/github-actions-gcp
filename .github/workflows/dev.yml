@@ -25,8 +25,10 @@ jobs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        # workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        # service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        workload_identity_provider: 'projects/678101462758/locations/global/workloadIdentityPools/example-pool/providers/example-provider3'
+        service_account: 'projects/hashbang-jmetal/serviceAccounts/myaccount@hashbang-jmetal.iam.gserviceaccount.com'
 
     - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
       with:
