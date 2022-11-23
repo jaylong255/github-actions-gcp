@@ -25,10 +25,10 @@ jobs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
-        # workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-        # service_account: ${{ secrets.SERVICE_ACCOUNT }}
-        workload_identity_provider: 'projects/678101462758/locations/global/workloadIdentityPools/example-pool/providers/example-provider3'
-        service_account: 'myaccount@hashbang-jmetal.iam.gserviceaccount.com'
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        # workload_identity_provider: 'projects/678101462758/locations/global/workloadIdentityPools/example-pool/providers/example-provider3'
+        # service_account: 'myaccount@hashbang-jmetal.iam.gserviceaccount.com'
 
     - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
       with:
@@ -37,8 +37,9 @@ jobs:
         project_id: hashbang-jmetal
         image_name: backend
         image_tag: latest,v1
-        # dockerfile: ./docker/Dockerfile.prod
-        # context: ./docker
+        NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
+      env:
+        NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
 
 #############################################
 
