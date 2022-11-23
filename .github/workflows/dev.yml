@@ -28,6 +28,16 @@ jobs:
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
+    - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+      with:
+        # gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
+        registry: gcr.io
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        image_name: backend
+        image_tag: latest,v1
+        # dockerfile: ./docker/Dockerfile.prod
+        # context: ./docker
+
 #############################################
 
 # name: Push to GCR GitHub Action
