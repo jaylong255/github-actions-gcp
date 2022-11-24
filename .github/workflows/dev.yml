@@ -30,9 +30,9 @@ jobs:
     - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
       with:
         registry: gcr.io
-        project_id: myawesomeproject
-        image_name: "$ECR_REPOSITORY-${{ github.sha }}"
-        image_tag: latest,v1
+        project_id: ${{ secrets.PROJECT_ID }}
+        image_name: eos-core-api-dev
+        image_tag: ${{github.sha}}
         NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
 
 #############################################
