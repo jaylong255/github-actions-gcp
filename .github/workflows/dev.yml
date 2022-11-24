@@ -1,4 +1,4 @@
-name: Push to GCR GitHub Action "${{GITHUB_REPOSITORY}}-${{GITHUB_BASE_REF}}-${{github.sha}}"
+name: Push to GCR GitHub Action $GITHUB_REPOSITORY-$GITHUB_BASE_REF
 
 on:
   pull_request:
