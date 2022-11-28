@@ -25,18 +25,18 @@ jobs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-        # workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-        # service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        # credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
     - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
       with:
-        gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
+        # gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
         registry: gcr.io
         # project_id: ${{ secrets.PROJECT_ID }}
         project_id: hashbang-jmetal
         image_name: backend
         image_tag: latest,v1
-        NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
+        # NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
 
 #====================
 
