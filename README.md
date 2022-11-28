@@ -4,3 +4,7 @@ Often times you will need to implement CI/CD for existing apps. Sometimes these 
 I've found that being able to prove that your DevOps work runs on a simple hello world app can make it easier to have a conversation with the app developers on what the problem might be. Conversely, if your work fails to build and run a hello world app, you can be confident that there is a problem on your end.
 
 This repo is for testing out GitHub Actions for GCP using simple hello world apps. 
+
+- enable Google Container Registry API in google cloud project
+- set up workload identity federation https://github.com/google-github-actions/auth#setting-up-workload-identity-federation
+
