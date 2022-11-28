@@ -1,103 +1,12 @@
-name: Push to GCR GitHub Action
-
-on:
-  pull_request:
-    branches:
-      - dev
-  push:
-    branches:
-      - dev
-
 jobs:
-  build-and-push-to-gcr:
-    runs-on: ubuntu-latest
-
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+  job_id:
+    # ...
 
     steps:
-    # actions/checkout MUST come before auth
     - uses: 'actions/checkout@v3'
 
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT }}
-    - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
-      with:
-        registry: gcr.io
-        project_id: ${{ secrets.PROJECT_ID }}
-        image_name: eos-core-api-dev
-        image_tag: ${{github.sha}}
-        NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
-
-#############################################
-
-# name: Push to GCR GitHub Action
-
-# on:
-#   pull_request:
-#     branches:
-#       - dev
-#   push:
-#     branches:
-#       - dev
-
-# # jobs:
-# #   build-and-push-to-gcr:
-# #     runs-on: ubuntu-latest
-# #     steps:      
-# #       - uses: actions/checkout@v3
-# #       - name: Authenticate to Google Cloud
-# #         id: auth
-# #         uses: google-github-actions/auth@v0
-# #         with:
-# #           workload_identity_provider: projects/123123123/locations/global/workloadIdentityPools/the-workload-pool/providers/the-provider
-# #           service_account: only-storage-object-adm@<PROJECT_ID>.iam.gserviceaccount.com
-
-# jobs:
-#   build-and-push-to-gcr:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Authenticate to Google Cloud
-#         uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
-#         with:
-#           service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
-#           project_id: ${{ secrets.PROJECT_ID }}
-#           export_default_credentials: true
-
-# # jobs:
-# #   build:
-#     name: build
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Check out code
-#         uses: actions/checkout@v2
-#       - name: Build Docker Image
-#         run: docker build -t local .
-
-# jobs:
-#   build-and-push-to-gcr:
-#     runs-on: ubuntu-latest
-#     steps:      
-#       - uses: actions/checkout@v3
-#       - name: Authenticate to Google Cloud
-#         id: auth
-#         uses: google-github-actions/auth@v0
-#         with:
-#           workload_identity_provider: projects/123123123/locations/global/workloadIdentityPools/the-workload-pool/providers/the-provider
-#           service_account: only-storage-object-adm@<PROJECT_ID>.iam.gserviceaccount.com
-#       - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
-#         with:
-#           # gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
-#           registry: gcr.io
-#           project_id: my-awesome-project
-#           image_name: backend
-#           image_tag: latest,v1
-#           dockerfile: ./docker/Dockerfile.prod
-#           context: ./docker
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
