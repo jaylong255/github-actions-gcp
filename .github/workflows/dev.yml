@@ -33,7 +33,7 @@ jobs:
         gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
         registry: gcr.io
         project_id: ${{ secrets.PROJECT_ID }}
-        image_name: eos-core-api-dev
+        image_name: hashbang-jmetal
         image_tag: ${{github.sha}}
         NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
 
