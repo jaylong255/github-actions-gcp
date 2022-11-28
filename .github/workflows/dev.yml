@@ -32,7 +32,7 @@ jobs:
       with:
         gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
         registry: gcr.io
-        project_id: ${{ secrets.PROJECT_ID }}
+        # project_id: ${{ secrets.PROJECT_ID }}
         project_id: hashbang-jmetal
         image_name: backend
         image_tag: latest,v1
