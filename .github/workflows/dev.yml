@@ -29,4 +29,4 @@ jobs:
         password: '${{ steps.auth.outputs.access_token }}'  
 
     - run: |-
-        echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://REGION-docker.pkg.dev
+        echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
