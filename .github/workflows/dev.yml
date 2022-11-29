@@ -24,10 +24,17 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         token_format: 'access_token' # adding this throws permission denied
-        # token_format: 'id_token' # 
-        # credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+        # works up to this point
+
+    # This example uses the docker login action
+    - uses: 'docker/login-action@v1'
+      with:
+        registry: 'gcr.io' # or REGION-docker.pkg.dev
+        username: 'oauth2accesstoken'
+        password: '${{ steps.auth.outputs.access_token }}'
 
 #====================================
 
