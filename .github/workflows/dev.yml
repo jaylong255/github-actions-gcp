@@ -40,6 +40,23 @@ jobs:
     - run: |-
         echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
+    - run: |-
+        docker build -t local .
+
+    - run: |-
+        docker tag local gcr.io/hashbang-jmetal/backend:latest
+
+    - run: |-
+        docker push gcr.io/hashbang-jmetal/backend:latest
+
+
+    
+
+    
+
+        
+    
+
 #====================================
 
 # jobs:
