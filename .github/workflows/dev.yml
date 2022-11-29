@@ -24,6 +24,7 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         # token_format: 'access_token' # adding this throws permission denied
+        token_format: 'id_token' # 
         # credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
