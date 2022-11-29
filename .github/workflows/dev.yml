@@ -1,47 +1,3 @@
-# name: Push to GCR GitHub Action
-
-# on:
-#   pull_request:
-#     branches:
-#       - dev
-#   push:
-#     branches:
-#       - dev
-
-# jobs:
-#   build-and-push-to-gcr:
-#     runs-on: ubuntu-latest
-
-#     # Add "id-token" with the intended permissions.
-#     permissions:
-#       contents: 'read'
-#       id-token: 'write'
-
-#     steps:
-#     # actions/checkout MUST come before auth
-#     - uses: 'actions/checkout@v3'
-
-#     - id: 'auth'
-#       name: 'Authenticate to Google Cloud'
-#       uses: 'google-github-actions/auth@v1'
-#       with:
-#         # credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-#         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-#         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-#     - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
-#       with:
-#         # gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
-#         registry: artifacts.hashbang-jmetal.appspot.com #gcr.io
-#         # project_id: ${{ secrets.PROJECT_ID }}
-#         project_id: hashbang-jmetal
-#         image_name: backend
-#         image_tag: latest,v1
-        
-#       env:
-#         NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
-
-#====================
-
 name: Push to GCR GitHub Action
 
 on:
@@ -62,6 +18,7 @@ jobs:
       id-token: 'write'
 
     steps:
+    # actions/checkout MUST come before auth
     - uses: 'actions/checkout@v3'
 
     - id: 'auth'
@@ -69,20 +26,63 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         # credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-        token_format: 'access_token'
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-
-
-    - uses: 'docker/login-action@v1'
+    - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
       with:
-        # gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }}
-        registry: 'gcr.io' # or REGION-docker.pkg.dev
-        username: 'oauth2accesstoken'
-        password: '${{ steps.auth.outputs.access_token }}'  
+        # gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
+        registry: artifacts.hashbang-jmetal.appspot.com #gcr.io
+        # project_id: ${{ secrets.PROJECT_ID }}
+        project_id: hashbang-jmetal
+        image_name: backend
+        image_tag: latest,v1
+        
+      env:
+        NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
 
-    - run: |-
-        echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+#====================
+
+# name: Push to GCR GitHub Action
+
+# on:
+#   pull_request:
+#     branches:
+#       - dev
+#   push:
+#     branches:
+#       - dev
+
+# jobs:
+#   build-and-push-to-gcr:
+#     runs-on: ubuntu-latest
+
+#     # Add "id-token" with the intended permissions.
+#     permissions:
+#       contents: 'read'
+#       id-token: 'write'
+
+#     steps:
+#     - uses: 'actions/checkout@v3'
+
+#     - id: 'auth'
+#       name: 'Authenticate to Google Cloud'
+#       uses: 'google-github-actions/auth@v1'
+#       with:
+#         # credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+#         token_format: 'access_token'
+#         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+#         service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+
+#     - uses: 'docker/login-action@v1'
+#       with:
+#         # gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+#         registry: 'gcr.io' # or REGION-docker.pkg.dev
+#         username: 'oauth2accesstoken'
+#         password: '${{ steps.auth.outputs.access_token }}'  
+
+#     - run: |-
+#         echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
 
 # name: Push to GCR GitHub Action
