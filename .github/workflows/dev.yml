@@ -12,7 +12,7 @@ jobs:
   login:
     runs-on: ubuntu-latest
 
-    permissions:
+    permissions: # this does not fix the permission denied response, that comes from gcp
       contents: 'read'
       id-token: 'write'
 
@@ -24,7 +24,9 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         token_format: 'access_token' # adding this throws permission denied
-        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+        # credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
 #====================================
 
