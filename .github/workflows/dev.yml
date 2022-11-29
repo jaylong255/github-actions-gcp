@@ -1,3 +1,6 @@
+# ===================================
+# Now figure it out with a plain service account token....
+
 name: Push to GCR GitHub Action
 
 on:
@@ -24,10 +27,9 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         token_format: 'access_token' # adding this throws permission denied
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT }}
-
-        # works up to this point
+        # workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        # service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
     # This example uses the docker login action
     - uses: 'docker/login-action@v1'
@@ -50,7 +52,62 @@ jobs:
         docker push gcr.io/hashbang-jmetal/backend:latest
 
 
-    
+#===============================================
+
+# # ===================================
+# # Working Implementation of WIP 
+
+# name: Push to GCR GitHub Action
+
+# on:
+#   pull_request:
+#     branches:
+#       - dev
+#   push:
+#     branches:
+#       - dev
+
+# jobs:
+#   login:
+#     runs-on: ubuntu-latest
+
+#     permissions: # this does not fix the permission denied response, that comes from gcp
+#       contents: 'read'
+#       id-token: 'write'
+
+#     steps:
+#     - uses: 'actions/checkout@v3'
+
+#     - id: 'auth'
+#       name: 'Authenticate to Google Cloud'
+#       uses: 'google-github-actions/auth@v1'
+#       with:
+#         token_format: 'access_token' # adding this throws permission denied
+#         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+#         service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+#     # This example uses the docker login action
+#     - uses: 'docker/login-action@v1'
+#       with:
+#         registry: 'gcr.io' # or REGION-docker.pkg.dev
+#         username: 'oauth2accesstoken'
+#         password: '${{ steps.auth.outputs.access_token }}'
+
+#     # This example runs "docker login" directly to Container Registry.
+#     - run: |-
+#         echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+
+#     - run: |-
+#         docker build -t local .
+
+#     - run: |-
+#         docker tag local gcr.io/hashbang-jmetal/backend:latest
+
+#     - run: |-
+#         docker push gcr.io/hashbang-jmetal/backend:latest
+
+
+# #===============================================
 
     
 
