@@ -38,7 +38,8 @@ jobs:
           registry: gcr.io
           username: _json_key
           password: ${{ secrets.GOOGLE_CREDENTIALS }}
-
+      - run: |-
+          echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 #===============================
 
 # name: Push to GCR GitHub Action
