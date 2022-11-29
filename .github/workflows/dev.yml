@@ -38,8 +38,21 @@ jobs:
           registry: gcr.io
           username: _json_key
           password: ${{ secrets.GOOGLE_CREDENTIALS }}
-      - run: |-
-          echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+      # - run: |-
+      #     echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+      - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+        with:
+          # gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
+          # registry: artifacts.hashbang-jmetal.appspot.com #gcr.io
+          registry: gcr.io
+          # project_id: ${{ secrets.PROJECT_ID }}
+          project_id: hashbang-jmetal
+          image_name: backend
+          image_tag: latest,v1
+          
+        env:
+          NPM_TOKEN: ${{secrets.MW_NPM_TOKEN_RO}}
+
 #===============================
 
 # name: Push to GCR GitHub Action
