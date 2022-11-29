@@ -31,7 +31,8 @@ jobs:
     - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
       with:
         # gcloud_service_key: ${{ secrets.GOOGLE_CREDENTIALS }} # can be base64 encoded or plain text || not needed if you use google-github-actions/auth
-        registry: artifacts.hashbang-jmetal.appspot.com #gcr.io
+        # registry: artifacts.hashbang-jmetal.appspot.com #gcr.io
+        registry: gcr.io
         # project_id: ${{ secrets.PROJECT_ID }}
         project_id: hashbang-jmetal
         image_name: backend
