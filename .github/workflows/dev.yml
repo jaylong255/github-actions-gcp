@@ -39,11 +39,17 @@ jobs:
         password: '${{ steps.auth.outputs.access_token }}'
 
     # This example runs "docker login" directly to Container Registry.
-    - run: |-
-        echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+    # - run: |-
+    #     echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
-    - run: |-
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/myawesomeimage:latest --build-arg NPM_TOKEN=${{ secrets.MW_NPM_TOKEN_RO }} .
+    # - run: |-
+    #     docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/myawesomeimage:latest --build-arg NPM_TOKEN=${{ secrets.MW_NPM_TOKEN_RO }} .
 
+    # - run: |-
+    #     docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/myawesomeimage:latest
     - run: |-
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/myawesomeimage:latest
+        docker pull hello-world
+    - run: |-
+        docker tag hello-world gcr.io/${{ secrets.GCP_PROJECT_ID }}/eos-core-api-dev:test 
+    - run: |-
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/eos-core-api-dev:test
